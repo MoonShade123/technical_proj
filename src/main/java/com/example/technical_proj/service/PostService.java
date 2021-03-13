@@ -26,12 +26,12 @@ public class PostService {
     private final PostSearch postSearch;
 
     @Autowired
-    public PostService(final PostRepository postRepository, final CommentRepository commentRepository, final PostSearch postSearch) {
+    public PostService(final PostRepository postRepository, final PostSearch postSearch) {
         this.postRepository = postRepository;
         this.postSearch = postSearch;
     }
 
-    //    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER')")
     public PostDto create(final Post post) {
         this.postRepository.save(post);
         return ToDtoConverter.postToDto(post);
@@ -51,12 +51,6 @@ public class PostService {
         return ToDtoConverter.postToDto(post);
     }
 
-    public Collection<PostDto> getAllPaginated(final Integer pageNumber) {
-        Integer index = pageNumber - 1;
-        Page<Post> posts = this.postRepository.findAll(PageRequest.of(index, 20));
-        return posts.stream().map(ToDtoConverter::postToDto).collect(Collectors.toList());
-    }
-
 
     @PreAuthorize("hasRole('USER')")
     public PostDto update(final Post post) {
@@ -69,36 +63,13 @@ public class PostService {
 
     @PreAuthorize("hasRole('USER')")
     public void delete(final Long id) {
-        Collection<Comment> relatedComments = commentRepository.findByPost_Id(id);
+        Collection<Post> relatedComments = postRepository.findByPost_Id(id);
         if (relatedComments.size() > 0) {
-            for (Comment comment : relatedComments) {
-                commentRepository.deleteById(comment.getId());
+            for (Post comment : relatedComments) {
+                postRepository.deleteById(comment.getId());
             }
         }
         this.postRepository.deleteById(id);
-    }
-
-    public void uploadImage(final MultipartFile file) throws IOException {
-        UUID imgGeneratedId = UUID.nameUUIDFromBytes(file.getBytes());
-        File convertFile = new File("src/main/frontend/src/assets/images/" + imgGeneratedId + file.getOriginalFilename());
-        Post foundPost = postRepository.findFirstByOrderByIdDesc();
-        foundPost.setImageUrl("./assets/images/" + imgGeneratedId + file.getOriginalFilename());
-        convertFile.createNewFile();
-        FileOutputStream fout = new FileOutputStream(convertFile);
-        fout.write(file.getBytes());
-        fout.close();
-        postRepository.save(foundPost);
-    }
-
-    @PreAuthorize("hasRole('USER')")
-    public void rate(final Long id, final Integer buttonState) {
-        Post foundPost = postRepository.findById(id).get();
-        if (buttonState.equals(0)) {
-            foundPost.setRatingPoints(foundPost.getRatingPoints() - 1);
-        } else if (buttonState.equals(1)) {
-            foundPost.setRatingPoints(foundPost.getRatingPoints() + 1);
-        }
-        postRepository.save(foundPost);
     }
 
     @SuppressWarnings("unchecked")

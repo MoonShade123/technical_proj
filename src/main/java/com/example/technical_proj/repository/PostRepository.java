@@ -12,6 +12,8 @@ import java.util.Collection;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
 
+    Collection<Post> findByPost_Id(final Long postId);
+
     @Query("from Post p order by p.creationTime desc")
     Collection<Post> findAllSortedByDateReverse();
 
