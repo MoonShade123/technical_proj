@@ -1,4 +1,4 @@
-# technical_project for Rami
+# Technical_project for Rami
 That project was built with Spring framework.
 RestAPI concept.
 
