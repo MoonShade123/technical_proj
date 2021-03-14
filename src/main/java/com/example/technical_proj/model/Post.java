@@ -42,6 +42,16 @@ public class Post {
     @ElementCollection(targetClass = RoleName.class)
     private List<RoleName> withRole;
 
+    private String attachmentUrl;
+
+    public String getAttachmentUrl() {
+        return attachmentUrl;
+    }
+
+    public void setAttachmentUrl(String attachmentUrl) {
+        this.attachmentUrl = attachmentUrl;
+    }
+
     public Long getId() {
         return Id;
     }
@@ -82,17 +92,4 @@ public class Post {
         this.withRole = withRole;
     }
 
-    public byte[] getAttachment() {
-        return attachment;
-    }
-
-    public void setAttachment(byte[] attachment) {
-        this.attachment = attachment;
-    }
-
-    @Lob
-    private byte[] attachment;
-
-    public Post() {
-    }
 }

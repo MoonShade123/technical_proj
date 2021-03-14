@@ -72,6 +72,18 @@ public class PostService {
         this.postRepository.deleteById(id);
     }
 
+    public void uploadAttachment(final MultipartFile file) throws IOException {
+        UUID imgGeneratedId = UUID.nameUUIDFromBytes(file.getBytes());
+        File convertFile = new File("src/main/assets/" + imgGeneratedId + file.getOriginalFilename());
+        Post foundPost = postRepository.findFirstByOrderByIdDesc();
+        foundPost.setAttachmentUrl("./assets/" + imgGeneratedId + file.getOriginalFilename());
+        convertFile.createNewFile();
+        FileOutputStream fout = new FileOutputStream(convertFile);
+        fout.write(file.getBytes());
+        fout.close();
+        postRepository.save(foundPost);
+    }
+
     @SuppressWarnings("unchecked")
     public Collection search(final String query) {
         Collection<Post> searchResults;

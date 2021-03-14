@@ -20,6 +20,8 @@ public class PostDto {
 
     private String title;
 
+    private String attachmentUrl;
+
     private LocalDateTime createTime;
 
     private UserDto user;

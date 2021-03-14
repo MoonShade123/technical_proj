@@ -12,6 +12,7 @@ public class ToDtoConverter {
                 post.getId(),
                 post.getAuthor(),
                 post.getTitle(),
+                post.getAttachmentUrl(),
                 post.getCreationTime(),
                 userToDto(post.getUser())
         );
