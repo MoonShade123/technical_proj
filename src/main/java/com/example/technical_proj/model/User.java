@@ -1,20 +1,17 @@
 package com.example.technical_proj.model;
 
-import com.example.technical_proj.commons.RoleName;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Entity
 @Table(name = "usr")
 @AllArgsConstructor
 @NoArgsConstructor
-public class User implements UserDetails {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
@@ -23,10 +20,10 @@ public class User implements UserDetails {
     private String email;
     private boolean active;
 
-    @ElementCollection(targetClass = RoleName.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
-    @Enumerated(EnumType.STRING)
-    private Set<RoleName> roles;
+    @NotNull
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    private Set<Role> roles;
 
     public Long getId() {
         return Id;
@@ -40,20 +37,6 @@ public class User implements UserDetails {
         return username;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
 
     public String getEmail() {
         return email;
@@ -63,18 +46,8 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    @Override
-    public boolean isEnabled() {
-        return isActive();
-    }
-
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles();
     }
 
     public String getPassword() {
@@ -93,11 +66,11 @@ public class User implements UserDetails {
         this.active = active;
     }
 
-    public Set<RoleName> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<RoleName> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
 }

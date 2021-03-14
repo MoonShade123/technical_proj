@@ -1,6 +1,6 @@
 package com.example.technical_proj.service;
 
-import com.example.technical_proj.commons.RoleName;
+import com.example.technical_proj.model.Role;
 import com.example.technical_proj.dto.UserDto;
 import com.example.technical_proj.dto.dtoConverter.ToDtoConverter;
 import com.example.technical_proj.exceptions.UserException;
@@ -39,8 +39,8 @@ public class UserService implements UserDetailsService {
 
     public void signUp(final User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        RoleName role = roleRepository.findRoleByName("USER");
-        Set<RoleName> roles = new HashSet<>();
+        Role role = roleRepository.findRoleByName("USER");
+        Set<Role> roles = new HashSet<>();
         roles.add(role);
         user.setRoles(roles);
         this.userRepository.save(user);
@@ -51,9 +51,9 @@ public class UserService implements UserDetailsService {
         adminAccount.setUsername("admin");
         adminAccount.setPassword(bCryptPasswordEncoder.encode(("admin")));
         adminAccount.setEmail("email@admin.com");
-        RoleName adminRole = roleRepository.findRoleByName("ADMIN");
-        RoleName userRole = roleRepository.findRoleByName("USER");
-        Set<RoleName> roles = new HashSet<>();
+        Role adminRole = roleRepository.findRoleByName("ADMIN");
+        Role userRole = roleRepository.findRoleByName("USER");
+        Set<Role> roles = new HashSet<>();
         roles.add(adminRole);
         roles.add(userRole);
         adminAccount.setRoles(roles);

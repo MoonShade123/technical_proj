@@ -23,7 +23,7 @@ public class ToDtoConverter {
                 user.getId(),
                 user.getUsername(),
                 user.getEmail(),
-                user.getRoles(),
-                user.getAuthorities());
+                user.isActive(),
+                user.getRoles());
     }
 }
