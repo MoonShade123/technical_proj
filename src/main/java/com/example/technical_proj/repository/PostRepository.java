@@ -12,12 +12,11 @@ import java.util.Collection;
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
 
-    Collection<Post> findByPost_Id(final Long postId);
+    void deleteById(final Long postId);
 
     @Query("from Post p order by p.creationTime desc")
     Collection<Post> findAllSortedByDateReverse();
 
-    Post findFirstByOrderByIdDesc();
 
     @Query("from Post p order by p.creationTime desc")
     Page<Post> findAll(final Pageable pageable);

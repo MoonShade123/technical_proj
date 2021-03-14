@@ -31,7 +31,7 @@ public class PostService {
         this.postSearch = postSearch;
     }
 
-    @PreAuthorize("hasRole('USER')")
+    //@PreAuthorize("hasRole('USER')")
     public PostDto create(final Post post) {
         this.postRepository.save(post);
         return ToDtoConverter.postToDto(post);
@@ -63,19 +63,14 @@ public class PostService {
 
     @PreAuthorize("hasRole('USER')")
     public void delete(final Long id) {
-        Collection<Post> relatedComments = postRepository.findByPost_Id(id);
-        if (relatedComments.size() > 0) {
-            for (Post comment : relatedComments) {
-                postRepository.deleteById(comment.getId());
-            }
-        }
+        postRepository.deleteById(id);
         this.postRepository.deleteById(id);
     }
 
     public void uploadAttachment(final MultipartFile file) throws IOException {
         UUID imgGeneratedId = UUID.nameUUIDFromBytes(file.getBytes());
         File convertFile = new File("src/main/assets/" + imgGeneratedId + file.getOriginalFilename());
-        Post foundPost = postRepository.findFirstByOrderByIdDesc();
+        Post foundPost = (Post) postRepository.findAll();
         foundPost.setAttachmentUrl("./assets/" + imgGeneratedId + file.getOriginalFilename());
         convertFile.createNewFile();
         FileOutputStream fout = new FileOutputStream(convertFile);

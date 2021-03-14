@@ -52,9 +52,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 authorizeRequests()
                 .antMatchers(
                         "/token/**",
+                        "users/signup",
                         "/users/**",
-                        "/posts/**",
-                        "/comments/**").permitAll()
+                        "/posts/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
