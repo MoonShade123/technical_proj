@@ -1,8 +1,7 @@
 package com.example.technical_proj.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.search.annotations.Field;
 import org.springframework.stereotype.Indexed;
 
 import javax.persistence.*;
@@ -13,6 +12,8 @@ import java.util.List;
 @Entity
 @Indexed
 @Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Post {
@@ -28,14 +29,7 @@ public class Post {
     @ManyToOne
     private User user;
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
+    @Field
     private String title;
 
     @Column(name = "creation_time")
@@ -45,53 +39,5 @@ public class Post {
     private List<Role> withRole;
 
     private String attachmentUrl;
-
-    public String getAttachmentUrl() {
-        return attachmentUrl;
-    }
-
-    public void setAttachmentUrl(String attachmentUrl) {
-        this.attachmentUrl = attachmentUrl;
-    }
-
-    public Long getId() {
-        return Id;
-    }
-
-    public void setId(Long id) {
-        Id = id;
-    }
-
-    public User getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public LocalDateTime getCreationTime() {
-        return creationTime;
-    }
-
-    public void setCreationTime(LocalDateTime creationTime) {
-        this.creationTime = creationTime;
-    }
-
-    public List<Role> getWithRole() {
-        return withRole;
-    }
-
-    public void setWithRole(List<Role> withRole) {
-        this.withRole = withRole;
-    }
 
 }

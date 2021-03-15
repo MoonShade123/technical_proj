@@ -1,15 +1,18 @@
 package com.example.technical_proj.model;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.*;
+
+import java.util.Collection;
 
 @Entity
 @Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Role {
 
     @Id
@@ -19,6 +22,8 @@ public class Role {
     @NotNull
     private String name;
 
-    private String description;
+    @NotNull
+    @ManyToMany(mappedBy = "roles")
+    private Collection<User> users;
 
 }
