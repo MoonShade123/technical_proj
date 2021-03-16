@@ -34,7 +34,7 @@ public class Post {
     @Column(name = "creation_time")
     private LocalDateTime creationTime;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Role> withRole;
 
     private String attachmentUrl;

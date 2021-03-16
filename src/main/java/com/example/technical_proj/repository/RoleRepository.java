@@ -1,11 +1,12 @@
 package com.example.technical_proj.repository;
 
+import com.example.technical_proj.commons.RoleName;
 import com.example.technical_proj.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
-    Role findRoleByName(final String name);
+    Role findByRoleName(RoleName roleName);
 }
 

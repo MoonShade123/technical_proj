@@ -3,6 +3,7 @@ package com.example.technical_proj.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import com.example.technical_proj.commons.RoleName;
 import lombok.*;
 
 import java.util.Collection;
@@ -19,8 +20,8 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @NotNull
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private RoleName roleName;
 
     @NotNull
     @ManyToMany(mappedBy = "roles")

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
+import java.util.Collection;
 import java.util.Set;
 
 @Getter
@@ -22,6 +23,6 @@ public class UserDto {
 
     private Boolean isActive;
 
-    private Set<Role> roles;
+    private Collection<Role> roles;
 
 }
