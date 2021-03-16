@@ -31,14 +31,13 @@ public class PostService {
         this.postSearch = postSearch;
     }
 
-    //@PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER')")
     public PostDto create(final Post post) {
         this.postRepository.save(post);
         return ToDtoConverter.postToDto(post);
     }
 
     public Collection<PostDto> getAll() {
-
         Collection<Post> posts = this.postRepository.findAllSortedByDateReverse();
         return posts.stream()
                 .map(ToDtoConverter::postToDto)
