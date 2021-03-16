@@ -1,5 +1,6 @@
 package com.example.technical_proj.service;
 
+import com.example.technical_proj.commons.RoleName;
 import com.example.technical_proj.model.Role;
 import com.example.technical_proj.dto.UserDto;
 import com.example.technical_proj.dto.dtoConverter.ToDtoConverter;
@@ -39,7 +40,7 @@ public class UserService implements UserDetailsService {
 
     public void signUp(final User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        Role role = roleRepository.findRoleByName("USER");
+        Role role = roleRepository.findByRoleName(RoleName.USER);
         Set<Role> roles = new HashSet<>();
         roles.add(role);
         user.setRoles(roles);
@@ -51,8 +52,8 @@ public class UserService implements UserDetailsService {
         adminAccount.setUsername("admin");
         adminAccount.setPassword(bCryptPasswordEncoder.encode(("admin")));
         adminAccount.setEmail("email@admin.com");
-        Role adminRole = roleRepository.findRoleByName("ADMIN");
-        Role userRole = roleRepository.findRoleByName("USER");
+        Role adminRole = roleRepository.findByRoleName(RoleName.ADMIN);
+        Role userRole = roleRepository.findByRoleName(RoleName.USER);
         Set<Role> roles = new HashSet<>();
         roles.add(adminRole);
         roles.add(userRole);
@@ -111,7 +112,7 @@ public class UserService implements UserDetailsService {
     private Set<SimpleGrantedAuthority> getAuthority(final User user) {
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
         user.getRoles().forEach(role -> {
-            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRoleName()));
         });
         return authorities;
     }

@@ -20,7 +20,7 @@ public class Role {
     private Long id;
 
     @Enumerated(value = EnumType.STRING)
-    private RoleName name;
+    private RoleName roleName;
 
     @ManyToMany(mappedBy = "roles")
     private Collection<User> users;
