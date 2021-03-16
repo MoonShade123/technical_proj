@@ -25,11 +25,10 @@ public class Post {
     @JoinColumn(name = "author_id")
     private User author;
 
-    @NotNull
-    @ManyToOne
-    private User user;
+    @Column
+    private String text;
 
-    @Field
+    @Column
     private String title;
 
     @Column(name = "creation_time")

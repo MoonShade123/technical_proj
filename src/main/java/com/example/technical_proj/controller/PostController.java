@@ -25,8 +25,8 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<PostDto> createPost(@RequestBody final Post post) {
-        return new ResponseEntity<>(this.postService.create(post), HttpStatus.OK);
+    public ResponseEntity<PostDto> createPost(@RequestBody final PostDto postDto) {
+        return new ResponseEntity<>(this.postService.create(postDto), HttpStatus.OK);
     }
 
     @GetMapping
@@ -40,8 +40,8 @@ public class PostController {
     }
 
     @PutMapping
-    public ResponseEntity<PostDto> updatePost(@RequestBody final Post post) {
-        return new ResponseEntity<>(this.postService.update(post), HttpStatus.OK);
+    public ResponseEntity<PostDto> updatePost(@RequestBody final PostDto postDto) {
+        return new ResponseEntity<>(this.postService.update(postDto), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
