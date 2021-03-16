@@ -2,6 +2,7 @@ package com.example.technical_proj.model;
 
 import javax.persistence.*;
 
+import com.example.technical_proj.commons.RoleName;
 import lombok.*;
 
 import java.util.Collection;
@@ -18,7 +19,8 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String name;
+    @Enumerated(value = EnumType.STRING)
+    private RoleName name;
 
     @ManyToMany(mappedBy = "roles")
     private Collection<User> users;
