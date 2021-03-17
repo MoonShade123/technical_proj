@@ -43,7 +43,7 @@ public class PostService {
         this.postSearch = postSearch;
     }
 
-    //@PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER')")
     public PostDto create(final PostDto postDto) {
         Post post = FromDtoConverter.dtoToPost(postDto);
         post.setAuthor(userRepository.getOne(postDto.getAuthorId()));

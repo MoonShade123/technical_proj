@@ -23,8 +23,4 @@ public class Role {
     @Enumerated(EnumType.STRING)
     private RoleName roleName;
 
-    @NotNull
-    @ManyToMany(mappedBy = "roles")
-    private Collection<User> users;
-
 }

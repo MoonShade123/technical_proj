@@ -26,6 +26,7 @@ public class ToDtoConverter {
         return new UserDto(
                 user.getId(),
                 user.getUsername(),
+                user.getPassword(),
                 user.getEmail(),
                 user.isActive(),
                 user.getRoles());

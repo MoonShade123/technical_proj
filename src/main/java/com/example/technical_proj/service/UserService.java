@@ -47,6 +47,7 @@ public class UserService implements UserDetailsService {
         this.userRepository.save(user);
     }
 
+
     public void createAdmin() {
         User adminAccount = new User();
         adminAccount.setUsername("admin");
