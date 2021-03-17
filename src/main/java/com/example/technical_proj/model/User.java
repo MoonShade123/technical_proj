@@ -35,7 +35,7 @@ public class User {
     private boolean active;
 
     @NotNull
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(
